@@ -42,7 +42,7 @@ elif os.path.isfile('vcap-local.json'):
 # When running this app on the local machine, default the port to 8000
 port = int(os.getenv('PORT', 8000))
 
-app = Flask(__name__)
+# app = Flask(__name__)
 
 app.config['SECRET_KEY'] = '457486afbc06732795658e96ba989d1a'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@localhost/db_gcg'
