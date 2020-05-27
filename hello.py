@@ -190,7 +190,6 @@ def startMeeting():
 def EmployeeInterview():
 	return render_template('EmployeeInterview.html')
 
-
 @app.route('/login', methods=['POST', 'GET'])
 def login():
 	if request.method=='POST':
