@@ -5,8 +5,8 @@ import os
 import json
 from flask import Flask, render_template, request, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy #We can rep our database structures as classes and you will be hearing those classes as MODELS.
-import ibm_db
-import ibm_db_dbi
+# import ibm_db
+# import ibm_db_dbi
 
 app = Flask(__name__, static_url_path='')
 
@@ -42,84 +42,75 @@ app = Flask(__name__, static_url_path='')
 # When running this app on the local machine, default the port to 8000
 port = int(os.getenv('PORT', 8000))
 
-# app = Flask(__name__)
+# app.config['SECRET_KEY'] = '457486afbc06732795658e96ba989d1a'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@localhost/db_gcg'
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-app.config['SECRET_KEY'] = '457486afbc06732795658e96ba989d1a'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@localhost/db_gcg'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-# Connect to DB2
-conn_str='database=BLUDB;hostname=dashdb-txn-sbox-yp-dal09-08.services.dal.bluemix.net;port=50000;protocol=tcpip;uid=dps35835;pwd=PleaseGoCovid19@2020'
-ibm_db_conn = ibm_db.connect(conn_str,'','')
-conn = ibm_db_dbi.Connection(ibm_db_conn)
+# # Connect to DB2
+# conn_str='database=BLUDB;hostname=dashdb-txn-sbox-yp-dal09-08.services.dal.bluemix.net;port=50000;protocol=tcpip;uid=dps35835;pwd=PleaseGoCovid19@2020'
+# ibm_db_conn = ibm_db.connect(conn_str,'','')
+# conn = ibm_db_dbi.Connection(ibm_db_conn)
 
-db = SQLAlchemy(app) #SQLAlchemy Database Instance Gets Created here. 
+# db = SQLAlchemy(app) #SQLAlchemy Database Instance Gets Created here. 
 
-class EMPLOYEEORG(db.Model):
-	USERNAME = db.Column(db.String(20), primary_key=True)
-	NAME = db.Column(db.String(20),  nullable=False)
-	EDUCATION = db.Column(db.String(50), nullable=False)
-	INTERNSHIP = db.Column(db.String(120), nullable=True)
-	EMAIL_ID = db.Column(db.String(20), nullable=False)
-	PASSWORD = db.Column(db.String(20), nullable=False)
-	POSOFRESP = db.Column(db.String(120), nullable=True)
-	PROJECTS = db.Column(db.String(200), nullable=True)
-	SKILLS = db.Column(db.String(150), nullable=False) 
-	PHONENO = db.Column(db.String(20), nullable=False)
-	# image_file = db.Column(db.String(120), nullable=False, nullable=False)
-	# password = db.Column(db.String(60), nullable=False)	
-
-
-class EMPLOYEEUNORG(db.Model):
-	USERNAME = db.Column(db.String(20), primary_key=True)
-	NAME = db.Column(db.String(20),  nullable=False)
-	EXPERIENCE = db.Column(db.String(150), nullable=True)
-	EMAIL_ID = db.Column(db.String(20), nullable=False)
-	PASSWORD = db.Column(db.String(20), nullable=False)
-	SKILLS = db.Column(db.String(150), nullable=False) 
-	PHONENO = db.Column(db.String(20), nullable=False)
-
-
-class EMPLOYER(db.Model):
-	USERNAME = db.Column(db.String(20), primary_key=True)
-	NAME = db.Column(db.String(20), nullable=False)
-	EMAIL_ID = db.Column(db.String(20), nullable=False)
-	COMPANY_NAME = db.Column(db.String(120), unique=False, nullable=False)
-	COMPANY_SIZE = db.Column(db.Integer, nullable=False)
-	POSITION = db.Column(db.String(20), nullable=False)
-	SECTORNAME = db.Column(db.Integer, nullable=False)
-	SECTOR_TYPE = db.Column(db.Integer, nullable=False)
-	PASSWORD = db.Column(db.String(20), nullable=False)
-	WEBSITE = db.Column(db.String(20), nullable=True)
-	PHONE = db.Column(db.Integer, nullable=False)
-
-
-# class USERS(db.Model):
-# 	USER_ID = db.Column(db.Integer, primary_key=True)
-# 	NAME = db.Column(db.String(20), unique=False, nullable=False)
+# class EMPLOYEEORG(db.Model):
+# 	USERNAME = db.Column(db.String(20), primary_key=True)
+# 	NAME = db.Column(db.String(20),  nullable=False)
+# 	EDUCATION = db.Column(db.String(50), nullable=False)
+# 	INTERNSHIP = db.Column(db.String(120), nullable=True)
 # 	EMAIL_ID = db.Column(db.String(20), nullable=False)
-# 	USER_TYPE = db.Column(db.Integer, nullable=False)
-# 	PHONE_NUMBER = db.Column(db.String(20), nullable=False)
+# 	PASSWORD = db.Column(db.String(20), nullable=False)
+# 	POSOFRESP = db.Column(db.String(120), nullable=True)
+# 	PROJECTS = db.Column(db.String(200), nullable=True)
+# 	SKILLS = db.Column(db.String(150), nullable=False) 
+# 	PHONENO = db.Column(db.String(20), nullable=False)
+# 	# image_file = db.Column(db.String(120), nullable=False, nullable=False)
+# 	# password = db.Column(db.String(60), nullable=False)	
 
 
-class LOGIN(db.Model):     #NEW TABLE
-	EMAIL_ID = db.Column(db.String(20), primary_key=True, nullable=False)
-	PASSWORD = db.Column(db.String(20), nullable=False)
+# class EMPLOYEEUNORG(db.Model):
+# 	USERNAME = db.Column(db.String(20), primary_key=True)
+# 	NAME = db.Column(db.String(20),  nullable=False)
+# 	EXPERIENCE = db.Column(db.String(150), nullable=True)
+# 	EMAIL_ID = db.Column(db.String(20), nullable=False)
+# 	PASSWORD = db.Column(db.String(20), nullable=False)
+# 	SKILLS = db.Column(db.String(150), nullable=False) 
+# 	PHONENO = db.Column(db.String(20), nullable=False)
 
-class REQUIREMENT(db.Model):
-	USER_ID = db.Column(db.Integer, primary_key=True)
-	POSITION = db.Column(db.String(30), unique=False, nullable=False)
-	SKILL_REQ = db.Column(db.String(120), nullable=True)
+
+# class EMPLOYER(db.Model):
+# 	USERNAME = db.Column(db.String(20), primary_key=True)
+# 	NAME = db.Column(db.String(20), nullable=False)
+# 	EMAIL_ID = db.Column(db.String(20), nullable=False)
+# 	COMPANY_NAME = db.Column(db.String(120), unique=False, nullable=False)
+# 	COMPANY_SIZE = db.Column(db.Integer, nullable=False)
+# 	POSITION = db.Column(db.String(20), nullable=False)
+# 	SECTORNAME = db.Column(db.Integer, nullable=False)
+# 	SECTOR_TYPE = db.Column(db.Integer, nullable=False)
+# 	PASSWORD = db.Column(db.String(20), nullable=False)
+# 	WEBSITE = db.Column(db.String(20), nullable=True)
+# 	PHONE = db.Column(db.Integer, nullable=False)
 
 
-class SKILLS(db.Model):
-	USER_ID = db.Column(db.Integer, primary_key=True)
-	SKILL = db.Column(db.String(120), nullable=True)
+# class LOGIN(db.Model):     #NEW TABLE
+# 	EMAIL_ID = db.Column(db.String(20), primary_key=True, nullable=False)
+# 	PASSWORD = db.Column(db.String(20), nullable=False)
 
-class CONTACTUS(db.Model):    #NEW TABLE
-	YOUR_NAME = db.Column(db.String(20), primary_key=True, nullable=False)
-	YOUR_EMAIL = db.Column(db.String(20), unique=False, nullable=False)
-	SUBJECT = db.Column(db.String(20), nullable=False)
-	MESSAGE = db.Column(db.String(20), nullable=False)
+# class REQUIREMENT(db.Model):
+# 	USER_ID = db.Column(db.Integer, primary_key=True)
+# 	POSITION = db.Column(db.String(30), unique=False, nullable=False)
+# 	SKILL_REQ = db.Column(db.String(120), nullable=True)
+
+
+# class SKILLS(db.Model):
+# 	USER_ID = db.Column(db.Integer, primary_key=True)
+# 	SKILL = db.Column(db.String(120), nullable=True)
+
+# class CONTACTUS(db.Model):    #NEW TABLE
+# 	YOUR_NAME = db.Column(db.String(20), primary_key=True, nullable=False)
+# 	YOUR_EMAIL = db.Column(db.String(20), unique=False, nullable=False)
+# 	SUBJECT = db.Column(db.String(20), nullable=False)
+# 	MESSAGE = db.Column(db.String(20), nullable=False)
 	
 
 @app.route('/')
