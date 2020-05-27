@@ -4,9 +4,9 @@ import atexit
 import os
 import json
 from flask import Flask, render_template, request, url_for, redirect
-# from flask_sqlalchemy import SQLAlchemy #We can rep our database structures as classes and you will be hearing those classes as MODELS.
-# import ibm_db
-# import ibm_db_dbi
+from flask_sqlalchemy import SQLAlchemy #We can rep our database structures as classes and you will be hearing those classes as MODELS.
+import ibm_db
+import ibm_db_dbi
 
 app = Flask(__name__, static_url_path='')
 
