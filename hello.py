@@ -191,6 +191,11 @@ def startMeetingEmployer():
 	return render_template('startMeetingEmployer.html')
 
 
+@app.route('/startMeeting')
+def startMeeting():
+	return render_template('startMeeting.html')
+
+
 
 @app.route('/EmployeeInterview')
 def EmployeeInterview():
